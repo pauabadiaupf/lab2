@@ -77,7 +77,7 @@ PLAY_AGAINST_MACHINE = False
 # ==============================================================================
 
 def get_config() -> tuple[int, int, int, int, int]:
-    def ask_yes_no(prompt: str) -> bool:
+    def ask_yes_no(prompt: str) -> bool: #ask for change in settings
 
         while True:
             answer = input(prompt + " (y/n): ")
@@ -88,6 +88,19 @@ def get_config() -> tuple[int, int, int, int, int]:
                 return False
             else:
                 print("Please answer y/n.")
+
+    def read_int_in_range(prompt: str, low: int, high: int) -> int: #check if parameters are correct     
+        while True:
+            try:
+                value = int(input(prompt))
+
+                if low <= value <= high:
+                    return value
+                else:
+                    print(f"Please enter a number between {low} and {high}.")
+
+            except ValueError:
+                print("Please enter a valid integer.")
  
 
 
