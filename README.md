@@ -1,1 +1,1 @@
-# lab2
+First of all, we had some difficulties learning how to use github and commit changes to the repository

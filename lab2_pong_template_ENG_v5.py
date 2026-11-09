@@ -28,6 +28,8 @@ Anti-AI-copy/paste control:
 - You must be able to explain to the professor what each function does
 - You must be able to explain specific sections of your program to the professor to verify your understanding
 - If you used AI tools, explain how in your report (section "Use of AI tools")
+
+testing how comitting works
 """
 
 import sys      # Used only for sys.exit(0): ensures clean program termination on all OSs
