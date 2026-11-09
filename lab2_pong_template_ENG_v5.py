@@ -33,6 +33,7 @@ testing how comitting works
 """
 
 import sys      # Used only for sys.exit(0): ensures clean program termination on all OSs
+from click import prompt
 import pygame   # essential for all the game rendering and play
 import random   # useful for randomising things a little bit (e.g. ball's initial direction)
 
@@ -76,6 +77,21 @@ PLAY_AGAINST_MACHINE = False
 # ==============================================================================
 
 def get_config() -> tuple[int, int, int, int, int]:
+    def ask_yes_no(prompt: str) -> bool:
+
+        while True:
+            answer = input(prompt + " (y/n): ")
+            if answer.lower() == 'y' or answer.lower() == 'yes':
+                return True
+
+            elif answer.lower() == 'n' or answer.lower() == 'no':
+                return False
+            else:
+                print("Please answer y/n.")
+ 
+
+
+        
     """ Ask the user whether they want to modify the main game parameters:
     (paddle height, paddle speed, ball X speed, ball Y speed, and ball radius).
    
@@ -108,12 +124,9 @@ def get_config() -> tuple[int, int, int, int, int]:
     - Remember to maintain the same order of the returned elements.
     """
 
-    # TODO: put your code!!!!
 
-    # This line of code has been left for letting the full program work
-    # It corresponds to the user answering NO to changing any default values 
-    # You will need to eliminate it when adding your code
-    return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS 
+
+
 
 def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """ Ask the user if they want to modify the game colors (background and foreground).
