@@ -324,59 +324,32 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
 
 
 def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_y: int, paddle_w: int, paddle_h: int, radius: int) -> tuple[int, int, int, int, bool]:
-    """
-    Detect and handle a collision between the ball and a paddle
-    using a simple AABB (Axis-Aligned Bounding Box) approximation.
-
-    Parameters
-    ----------
-    x, y : Current position of the CENTER of the ball (in pixels).
-           Remember: (0,0) is the top-left corner of the screen.
-    vx, vy : Current horizontal and vertical speed of the ball (pixels per frame).
-    paddle_x, paddle_y : Top-left corner of the paddle.
-    paddle_w, paddle_h : Width and height of the paddle.
-    radius : Radius of the ball.
-
-    Returns
-    -------
-    x_new, y_new : Possibly corrected position of the ball (e.g. moved just outside the paddle).
-    vx_new, vy_new : Possibly modified velocities. vx is inverted if collision occurs.
-    hit : True if a collision occurred, False otherwise.
-
-    Algorithm and hints
-    -------------------
-    1. Approximate the circular ball by a small square defined by:
-           left   = x - radius
-           right  = x + radius
-           top    = y - radius
-           bottom = y + radius
-       This makes collision checks simpler: rectangles only.
-
-    2. Compare this "ball box" with the paddle rectangle defined by:
-           left   = paddle_x
-           right  = paddle_x + paddle_w
-           top    = paddle_y
-           bottom = paddle_y + paddle_h
-       A collision happens when the two rectangles overlap.
-
-    3. If they overlap:
-         - Invert vx (horizontal speed) to make the ball bounce.
-         - Move the ball just outside the paddle, so that it does not get "stuck"
-           (overlapping again on the next frame and bouncing back and forth inside the paddle).
-         - [OPTIONAL] You can also try to apply some "effect" making vy slightly dependent on where the ball
-           hits the paddle (experiment!)
-
-    Notes
-    -----
-    - The paddle and ball are both **axis-aligned**, so no trigonometry is needed.
-    - The collision box ignores the ball's circular shape for simplicity,
-      which is sufficient for this game.
-    """
-    # TODO: put your code!!!!
     hit = False
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    # Edges of the ball
+    ball_left = x - radius
+    ball_right = x + radius
+    ball_top = y - radius
+    ball_bottom = y + radius
+
+    # Edges of the paddle
+    paddle_left = paddle_x
+    paddle_right = paddle_x + paddle_w
+    paddle_top = paddle_y
+    paddle_bottom = paddle_y + paddle_h
+
+    # Check if the ball overlaps the paddle
+    if (ball_right >= paddle_left and ball_left <= paddle_right and ball_bottom >= paddle_top and ball_top <= paddle_bottom):
+
+        hit = True
+        vx = -vx
+
+        # Move ball outside the paddle
+        if vx > 0:
+            x = paddle_right + radius
+        else:
+            x = paddle_left - radius
+
     return x, y, vx, vy, hit
 
 def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool) -> tuple[int, int, int, int]:
