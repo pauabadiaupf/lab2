@@ -72,35 +72,25 @@ KEY_DOWN_RIGHT = pygame.K_DOWN      # arrow DOWN
 # Play against machine (optional feature): set to True once compute_ai_direction() is implemented
 PLAY_AGAINST_MACHINE = False
 
+
+
+
 # ==============================================================================
 # Functions to complete by the students : configuration/setup before game starts
 # ==============================================================================
 
 def get_config() -> tuple[int, int, int, int, int]:
-    def ask_yes_no(prompt: str) -> bool: #ask for change in settings
+    print("DEBUG: get_config() has started")
+    if not ask_yes_no("Do you want to change the game configuration?"):
+        return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
-        while True:
-            answer = input(prompt + " (y/n): ")
-            if answer.lower() == 'y' or answer.lower() == 'yes':
-                return True
+    paddle_height = read_int_in_range("Paddle height (60-160): ", 60, 160)
+    paddle_speed = read_int_in_range("Paddle speed: ", 1, 15)
+    ball_x_speed = read_int_in_range("Ball X speed: ", 1, 15)
+    ball_y_speed = read_int_in_range("Ball Y speed: ", 1, 15)
+    ball_radius = read_int_in_range("Ball radius: ", 5, 20)
 
-            elif answer.lower() == 'n' or answer.lower() == 'no':
-                return False
-            else:
-                print("Please answer y/n.")
-
-    def read_int_in_range(prompt: str, low: int, high: int) -> int: #check if parameters are correct     
-        while True:
-            try:
-                value = int(input(prompt))
-
-                if low <= value <= high:
-                    return value
-                else:
-                    print(f"Please enter a number between {low} and {high}.")
-
-            except ValueError:
-                print("Please enter a valid integer.")
+    return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius
  
 
 
@@ -210,28 +200,19 @@ def read_color(prompt: str) -> tuple[int, int, int]:
     # TODO: put your code!!!!
     # return r, g, b
 
-def read_int_in_range(prompt: str, low: int, high: int) -> int:
-    """Ask user for an integer within [low, high]. 
-    Keeps asking until a valid value is entered.
-    The implementation must not stop the program due to an error.
-    Should be robust to out-of-range numbers and non-integer input.
+def read_int_in_range(prompt: str, low: int, high: int) -> int: #check if parameters are correct     
+    while True:
+        try:
+            value = int(input(prompt))
 
-    Parameters
-    ----------
-    prompt : str
-        The message that will appear before the user types input.
-        Example: "Enter paddle height".
-    low : int
-        The minimum allowed integer value.
-    high : int
-        The maximum allowed integer value.
+            if low <= value <= high:
+                return value
+            else:
+                print(f"Please enter a number between {low} and {high}.")
 
-    Returns
-    -------
-    An integer value such that low <= value <= high.
-    """
-    
-    # TODO: put your code!!!!
+        except ValueError:
+            print("Please enter a valid integer.")
+
 
 def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: int) -> int:
     """ Advanced/alternate more user-friendly version of read_int_in_range().
@@ -270,34 +251,17 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     # TODO: put your code!!!!
 
 
-def ask_yes_no(prompt: str) -> bool:
-    """ Ask the user a yes/no question and return the corresponding Boolean value.
+def ask_yes_no(prompt: str) -> bool: #ask for change in settings
 
-    The function should repeatedly prompt the user until a valid answer
-    is given. It must accept both upper- and lowercase input, and it should
-    not crash on unexpected text.
+    while True:
+        answer = input(prompt + " (y/n): ")
+        if answer.lower() == 'y' or answer.lower() == 'yes':
+            return True
 
-    Parameters
-    ----------
-    prompt : str
-        The question to show to the user (for example: "Change colors?").
-        The function should append "(y/n):" or similar guidance to the prompt
-        when displaying it.
-
-    Returns
-    -------
-    bool
-        True  → if the user answered "y" or "yes"
-        False → if the user answered "n" or "no"
-
-    Notes and hints
-    ---------------
-    - Accept short forms ("y", "n") and optionally full words ("yes", "no").
-    - Accept also UPPERCASE, so better convert user input to lowercase
-    - Print a short message (e.g. "Please answer y/n.") when the answer is invalid.
-    - Return only after receiving a valid input; do not stop the program with errors.
-    """
-    # TODO: put your code!!!!
+        elif answer.lower() == 'n' or answer.lower() == 'no':
+            return False
+        else:
+            print("Please answer y/n.")
 
 # ================================
 # Functions to complete: main game
