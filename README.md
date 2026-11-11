@@ -1,1 +1,1 @@
-First of all, we had some difficulties learning how to use github and commit changes to the repository
+First of all, we had some difficulties learning how to use github and commit changes to the repository. Then we completed some basic functions, like read int in range and ask yes or no so we could complete the first function for the game: get config.

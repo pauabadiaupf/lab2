@@ -312,27 +312,14 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
 
 
 def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int, height: int) -> tuple[int, int, int, int]:
-    """Detect and handle collisions with top/bottom walls.
-    Parameters:
-        x       - current horizontal position of the ball (pixels)
-        y       - current vertical position of the ball (pixels)
-        vx      - horizontal speed (pixels increment at each step)
-        vy      - vertical speed (pixels increment at each step)
-        radius  - of the ball (pixels)
-        width   - of the board (pixels). Not needed here: goals are handled in main()
-        height  - of the board (pixels)
-    Returns:
-        updated x, y, vx, vy
-    Rules:
-        Make sure the ball stays inside the area.
-        Do not consider "goals" (ball hitting vertical walls) here. Check only horizontal bounces on top/bottom walls
-        When hitting a horizontal wall, change the sign of vy
-        For precisely detecting collisions, you might need to consider the ball radius
-    """
-    # TODO: put your code!!!!
+    if y - radius <= 0:
+        y = radius
+        vy = -vy
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    elif y + radius >= height:
+        y = height - radius
+        vy = -vy
+
     return x, y, vx, vy
 
 
