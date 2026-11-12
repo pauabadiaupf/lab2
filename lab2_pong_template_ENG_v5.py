@@ -131,42 +131,14 @@ def get_config() -> tuple[int, int, int, int, int]:
 
 
 
-def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
-    """ Ask the user if they want to modify the game colors (background and foreground).
+def change_colors():
+    if not ask_yes_no("Do you want to change game colors?"):
+        return BLACK, WHITE
 
-    If the user chooses **not** to change colors, return the default color tuples:
-        (BLACK, WHITE)
+    background_color = read_color("background")
+    foreground_color = read_color("foreground")
 
-    If the user answers **yes**, the function should:
-      - Ask for a new **background** color.
-      - Ask for a new **foreground** color (the color used for paddles, ball, and text).
-      - Each color must be entered as a tuple of three integers
-        representing the RGB components (Red, Green, Blue),
-        with each value between 0 and 255.
-
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    tuple[tuple[int, int, int], tuple[int, int, int]]
-        Two RGB color tuples: (background_color, foreground_color)
-
-    Notes and hints
-    ---------------
-    - Use `ask_yes_no(prompt)` to decide whether to open the color configuration.
-    - Use `read_color(prompt)` to read one color at a time.
-      This function should itself ask for the three RGB components.
-    - Remember that colors in pygame are defined as tuples of 3 integers: (red, green, blue)
-    - Keep the order of returned values consistent: first background, then foreground.
-    """
-
-    # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return BLACK, WHITE
+    return background_color, foreground_color
 
 def read_color(prompt):
     print(f"Enter RGB values for {prompt}:")
